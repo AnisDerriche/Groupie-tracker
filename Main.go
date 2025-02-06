@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"html/template"
 	"net/http"
 )
 
@@ -10,7 +11,25 @@ type album struct {
 	Index interface{} "json:'index'"
 }
 
+func handler(w http.ResponseWriter, r *http.Request) {
+	tmpl, err := template.ParseFiles("templates/index.html")
+	if err != nil {
+		http.Error(w, "Erreur lors du chargement de la page", http.StatusInternalServerError)
+		return
+	}
+	tmpl.Execute(w, nil)
+}
+
 func main() {
+	http.HandleFunc("/", handler)
+	fs := http.FileServer(http.Dir("./static"))
+	http.Handle("/static/", http.StripPrefix("/static/", fs))
+	port := ":8080"
+	fmt.Println("Serveur démarré sur http://localhost" + port)
+	http.ListenAndServe(port, nil)
+}
+
+func getartists() {
 	url := "https://groupietrackers.herokuapp.com/api/relation" //lien de l'api
 
 	// geter
