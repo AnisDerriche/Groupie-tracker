@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="../static/style.css">
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Groupie Tracker</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body>
         <div class="container">
@@ -17,26 +18,15 @@
                 <img src="../static/mic.png" width="10%">
                 <img src="../static/maison.png" width="10%">
         </div>
-
+        <div>
+            <li>.
+                {{range .}}
+                    <li><strong>Nom de l'artiste :</strong> {{.ArtistName}}</li>
+                    <img src="{{.ArtistImage}}" alt="Image de l'artiste {{.ArtistName}}" >
+                {{end}}
+            </li>
+        </div>
     <div class="page">
-
-        <div class="son">
-            <img src="../static/son2.png" alt="Erreur">
-            <audio class="audio" src="../static/son/Rihanna.mp3">Erreur</audio>
-        </div>
-
-        <div class="son" alt="Erreur">
-            <img src="../static/son2.png">
-            <audio class="audio" src="../static/son/SDM.mp3">Erreur</audio>
-        </div>
-
-        <div class="page">
-            
-            <div class="son">
-                <img src="son2.png"  data-gif="../static/testy.gif" class="gif">
-                <audio class="audio" src="son/DJsanke.mp3">Erreur</audio>
-            </div>
-
     </div>
     <script src="script.js"></script>
 </body>
