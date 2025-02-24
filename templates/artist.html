@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../static/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Groupie Tracker</title>
+</head>
+<body>
+    <div>
+        <h1>{{.Name}}</h1>
+        <img src="{{.Image}}" alt="Image de {{.Name}}" class="artist-img">
+        
+        <h2>Dates de représentation :</h2>
+        <ul>
+            {{range $location, $dates := .DatesLocations}}
+                <li><strong>{{$location}}</strong>
+                    <ul>
+                        {{range $dates}}
+                            <li>{{.}}</li>
+                        {{end}}
+                    </ul>
+                </li>
+            {{end}}
+        </ul>
+    </div>
+</body>
+</html>

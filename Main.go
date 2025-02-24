@@ -6,6 +6,7 @@ import (
 	"html/template"
 	"io/ioutil"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
@@ -28,6 +29,7 @@ type ApiResponse struct {
 
 func handler(w http.ResponseWriter, r *http.Request) {
 	relations, err := getrelation()
+
 	if err != nil {
 		http.Error(w, "Erreur de récupération des données", http.StatusInternalServerError)
 		return
@@ -53,18 +55,90 @@ func handler(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 	}
-	tmpl, err := template.ParseFiles("templates/index.html")
+	tmpl, err := template.ParseGlob("templates/*.html")
 	if err != nil {
-		http.Error(w, "Erreur lors du chargement de la page", http.StatusInternalServerError)
+		http.Error(w, "Erreur lors du chargement des pages", http.StatusInternalServerError)
 		return
 	}
-	tmpl.Execute(w, filtered)
+	err = tmpl.ExecuteTemplate(w, "index.html", filtered)
+	if err != nil {
+		http.Error(w, "Erreur lors de l'exécution du template", http.StatusInternalServerError)
+	}
+
+}
+
+func artistHandler(w http.ResponseWriter, r *http.Request) {
+	// Récupère l'ID de l'artiste dans l'URL
+	idStr := r.URL.Query().Get("id")
+	id, err := strconv.Atoi(idStr)
+	if err != nil || id <= 0 {
+		http.Error(w, "ID invalide", http.StatusBadRequest)
+		return
+	}
+
+	artists, err := getartist()
+	if err != nil {
+		http.Error(w, "Erreur de récupération des artistes", http.StatusInternalServerError)
+		return
+	}
+
+	relations, err := getrelation()
+	if err != nil {
+		http.Error(w, "Erreur de récupération des données", http.StatusInternalServerError)
+		return
+	}
+
+	// trouver l'artiste et ses information de concert
+	var selectedArtist *artist
+	var selectedRelation *relation
+
+	for _, a := range artists {
+		if a.ID == id {
+			selectedArtist = &a
+			break
+		}
+	}
+
+	for _, r := range relations {
+		if r.ID == id {
+			selectedRelation = &r
+			break
+		}
+	}
+
+	if selectedArtist == nil {
+		http.Error(w, "Artiste non trouvé", http.StatusNotFound)
+		return
+	}
+
+	// struct pour transmettre a artist.html
+	data := struct {
+		Name           string
+		Image          template.URL
+		DatesLocations map[string][]string
+	}{
+		Name:           selectedArtist.Name,
+		Image:          selectedArtist.Image,
+		DatesLocations: selectedRelation.DatesLocations,
+	}
+
+	tmpl, err := template.ParseFiles("templates/artist.html")
+	if err != nil {
+		http.Error(w, "Erreur lors du chargement de la page artiste", http.StatusInternalServerError)
+		return
+	}
+
+	err = tmpl.Execute(w, data)
+	if err != nil {
+		http.Error(w, "Erreur lors de l'exécution du template", http.StatusInternalServerError)
+	}
 }
 
 func main() {
 	http.HandleFunc("/", handler)
+	http.HandleFunc("/artist.html", artistHandler)
 	fs := http.FileServer(http.Dir("./static"))
-	http.Handle("../static/", http.StripPrefix("/static/", fs))
+	http.Handle("/static/", http.StripPrefix("/static/", fs))
 	port := ":8080"
 	fmt.Println("Serveur démarré sur http://localhost" + port)
 	http.ListenAndServe(port, nil)
