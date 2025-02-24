@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <link rel="stylesheet" type="text/css" href="../static/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Groupie Tracker</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
@@ -16,13 +16,14 @@
                         <img src="../static/loupe.png" width="10%">
                     </div>
                 <img src="../static/mic.png" width="10%">
-                <img src="../static/maison.png" width="10%">
+                <img src="../static/maison.png" width="10%">    
         </div>
         <div>
-            <li>.
+            <li>
                 {{range .}}
-                    <li><strong>Nom de l'artiste :</strong> {{.ArtistName}}</li>
-                    <img src="{{.ArtistImage}}" alt="Image de l'artiste {{.ArtistName}}" >
+                    <li class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <strong>Nom de l'artiste :</strong> {{.ArtistName}} 
+                        <img src="{{.ArtistImage}}" alt="Image de l'artiste {{.ArtistName}}" ></li>
                 {{end}}
             </li>
         </div>

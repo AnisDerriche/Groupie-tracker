@@ -64,7 +64,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 func main() {
 	http.HandleFunc("/", handler)
 	fs := http.FileServer(http.Dir("./static"))
-	http.Handle("../static/", http.StripPrefix("/static/", fs))
+	http.Handle("/static/", http.StripPrefix("/static/", fs))
 	port := ":8080"
 	fmt.Println("Serveur démarré sur http://localhost" + port)
 	http.ListenAndServe(port, nil)
