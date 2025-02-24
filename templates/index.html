@@ -12,23 +12,54 @@
             <a href="https://open.spotify.com/intl-fr" target="_blank"><img src="../static/spotify.png" width="80%"></a>
             <a href="https://www.deezer.com/fr/" target="_blank"><img src="../static/deezer.png" width="70%"></a>
                     <div class="rechercher">
-                        <input type="text" placeholder="Rechercher">
+                        <input type="text" id="searchBar" placeholder="Rechercher">
                         <img src="../static/loupe.png" width="10%">
                     </div>
                 <img src="../static/mic.png" width="10%">
                 <img src="../static/maison.png" width="10%">    
         </div>
-        <div>
-            <li>
-                {{range .}}
-                    <li class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <strong>Nom de l'artiste :</strong> {{.ArtistName}} 
-                        <img src="{{.ArtistImage}}" alt="Image de l'artiste {{.ArtistName}}" ></li>
-                {{end}}
-            </li>
+        <div id="artistContainer">
+            {{range .}}
+                <li class="artist grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <strong>Nom de l'artiste :</strong> {{.ArtistName}} 
+                    <img src="{{.ArtistImage}}" alt="Image de l'artiste {{.ArtistName}}">
+                </li>
+            {{end}}
         </div>
     <div class="page">
     </div>
-    <script src="script.js"></script>
 </body>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const searchBar = document.getElementById("searchBar");
+    const artistContainer = document.getElementById("artistContainer");
+
+    console.log("Élément searchBar :", searchBar);
+    console.log("Élément artistContainer :", artistContainer);
+
+    searchBar.addEventListener("input", function () {
+        const query = searchBar.value.trim().toLowerCase();
+        
+        fetch(`/filter?filter=${query}`, { headers: { "X-Requested-With": "XMLHttpRequest" } })
+            .then(response => response.json())
+            .then(data => {
+                artistContainer.innerHTML = ""; // Vide la liste actuelle
+
+                data.forEach(artist => {
+                    const li = document.createElement("li");
+                    li.classList.add("artist", "grid", "grid-cols-2", "sm:grid-cols-2", "lg:grid-cols-3", "gap-6");
+
+                    li.innerHTML = `
+                        <strong>Nom de l'artiste :</strong> ${artist.ArtistName} 
+                        <img src="${artist.ArtistImage}" alt="Image de l'artiste ${artist.ArtistName}">
+                    `;
+
+                    artistContainer.appendChild(li);
+                });
+            })
+            .catch(error => console.error("Erreur lors du filtrage :", error));
+    });
+});
+
+</script>
 </html>
