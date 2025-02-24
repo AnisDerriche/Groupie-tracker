@@ -1,29 +1,3 @@
-.rechercher {
-    border: 2px black solid;
-    border-radius: 45px;
-    text-align: center;
-    height: 80px;
-    display: flex;
-    align-items: center;
-    width: 50%;
-}
- 
-.rechercher img {
-    width: 9%;
-    margin-left: -10px;
-    transform: scaleX(-1);
-}
-.rechercher input{                
-    padding: 10px;              
-    border: none;              
-    border-radius: 45px;        
-    font-weight: bold;          
-    font-size: 40px;            
-    outline: none;
-    text-align: center;
-    height: 60px;
-}
- 
 body {
     background-color: rgb(91, 91, 91);
 }
@@ -40,7 +14,6 @@ body {
     gap: 10px;
 }
  
- 
 .rechercher {
     border: 2px black solid;
     border-radius: 45px;
@@ -48,7 +21,6 @@ body {
     height: 80px;
     display: flex;
     align-items: center;
-    width: 50%;
 }
  
 .rechercher img {
@@ -56,17 +28,18 @@ body {
     margin-left: -10px;
     transform: scaleX(-1);
 }
-.rechercher input{                
+ 
+.rechercher input {                
     padding: 10px;              
     border: none;              
-    border-radius: 45px;        
+    border-radius: 25px;        
     font-weight: bold;          
-    font-size: 40px;            
+    font-size: 20px;            
     outline: none;
     text-align: center;
-    height: 60px;
 }
-.son{
+ 
+.son {
     border: 2px black solid;
     border-radius: 150px;
     align-items: center;
@@ -74,14 +47,16 @@ body {
     text-align: center;
     background-color: #1db954;
 }
-img{
+ 
+img {
     display: flex;
-    max-width:95%;
-    height:auto;
+    max-width: 100%;
+    height: auto;
     align-items: center;
     cursor: pointer;
 }
-.page{
+ 
+.page {
     width: 95%;            
     display: flex;
     align-items: center;
@@ -89,14 +64,55 @@ img{
     padding: 10px;
     gap: 150px;
 }
+ 
 audio {
     display: none;
 }
-.art{
-    border-radius: 40px;
-    width: 30%;    
-    background-color: #8A2BE2;
-    border: 3px black solid;
-    padding: 10px;
-    gap: 10px;
+ 
+li {
+    background-color:  rgb(255, 255, 178);;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transition: box-shadow 0.3s ease-in-out;
 }
+ 
+li:hover {
+    box-shadow: 0 10px 15px -3px rgba(255, 0, 0, 0.5), 0 4px 6px -2px rgba(158, 32, 32, 0.703);
+}
+ 
+.artist-img {
+    transition: transform 0.3s ease-in-out;
+    width: 80%;  /* Réduit encore plus la taille de l'image à 60% de sa taille originale */
+    height: auto;
+    margin: 0 auto;  /* Centrer l'image */
+}
+ 
+.artist-img:hover {
+    transform: translateY(-5px);
+}
+ 
+.artist-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 colonnes */
+    gap: 30px; /* Ajoute un écart de 30px entre les albums */
+    padding: 20px;
+}
+ 
+.artist-card {
+    background-color: rgb(255, 255, 178);
+    padding: 2px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+ 
+.artist-card:hover {
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+}
+ 
+.artist-card p {
+    margin-bottom: 10px;
+}
+ 
+ 

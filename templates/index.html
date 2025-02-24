@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="../static/style.css">
@@ -12,18 +12,19 @@
             <a href="https://open.spotify.com/intl-fr" target="_blank"><img src="../static/spotify.png" width="80%"></a>
             <a href="https://www.deezer.com/fr/" target="_blank"><img src="../static/deezer.png" width="70%"></a>
                     <div class="rechercher">
-                        <input type="text" id="searchBar" placeholder="Rechercher">
-                        <img src="../static/loupe.png" width="10%">
+                        <input class="Input" type="text" id="searchBar" placeholder="Rechercher">
                     </div>
                 <img src="../static/mic.png" width="10%">
                 <img src="../static/maison.png" width="10%">    
         </div>
-        <div id="artistContainer">
+        <div id="artistContainer" class="artist-container grid grid-cols-3 gap-6">
             {{range .}}
-                <li class="artist grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <strong>Nom de l'artiste :</strong> {{.ArtistName}} 
-                    <img src="{{.ArtistImage}}" alt="Image de l'artiste {{.ArtistName}}">
-                </li>
+                <div class="artist-card">
+                    <p class="text-center font-bold">{{.ArtistName}}</p>
+                    <a href="artist.html?id={{.ID}}">
+                        <img src="{{.ArtistImage}}" alt="Image de l'artiste {{.ArtistName}}" class="artist-img">
+                    </a>
+                </div>
             {{end}}
         </div>
     <div class="page">
