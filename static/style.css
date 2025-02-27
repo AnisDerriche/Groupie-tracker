@@ -1,116 +1,193 @@
-body {
+/* Container principal de la page d'accueil */
+.home-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
     background-color: rgb(91, 91, 91);
+    padding: 20px;
 }
 
-.container {
-    width: 95%;            
+
+.home-links {
     display: flex;
-    align-items: center;    
-    position: relative;    
-    background-color: white;
-    border-radius: 80px;
-    border: 3px black solid;
-    padding: 10px;
-    gap: 10px;
+    gap: 20px;
 }
 
-.rechercher {
-    border: 2px black solid;
-    border-radius: 45px;
-    text-align: center;
-    height: 80px;
-    display: flex;
-    align-items: center;
-}
-
-.rechercher img {
-    width: 9%;
-    margin-left: -10px;
-    transform: scaleX(-1);
-}
-
-.rechercher input {                
-    padding: 10px;              
-    border: none;              
-    border-radius: 25px;        
-    font-weight: bold;          
-    font-size: 20px;            
-    outline: none;
-    text-align: center;
-}
-
-.son {
-    border: 2px black solid;
-    border-radius: 150px;
-    align-items: center;
-    height: 40%;
-    text-align: center;
-    background-color: #1db954;
-}
-
-img {
-    display: flex;
-    max-width: 100%;
-    height: auto;
-    align-items: center;
+.home-link-img {
+    width: 80%;
+    max-width: 150px;
     cursor: pointer;
 }
 
-.page {
-    width: 95%;            
+.search-container {
+    width: 100%;
     display: flex;
-    align-items: center;
-    position: relative;
+    justify-content: center;
+}
+
+.search-input {
     padding: 10px;
-    gap: 150px;
+    border-radius: 25px;
+    font-weight: bold;
+    font-size: 20px;
+    border: none;
+    outline: none;
+    text-align: center;
+    width: 60%;
+    background-color: #fff;
 }
 
-audio {
-    display: none;
+.icon-container {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 }
 
-li {
-    background-color:  rgb(255, 255, 178);;
-    border-radius: 0.5rem;
-    padding: 1.5rem;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    transition: box-shadow 0.3s ease-in-out;
-}
-
-li:hover {
-    box-shadow: 0 10px 15px -3px rgba(255, 0, 0, 0.5), 0 4px 6px -2px rgba(158, 32, 32, 0.703);
-}
-
-.artist-img {
-    transition: transform 0.3s ease-in-out;
-    width: 80%;  /* Réduit encore plus la taille de l'image à 60% de sa taille originale */
-    height: auto;
-    margin: 0 auto;  /* Centrer l'image */
-}
-
-.artist-img:hover {
-    transform: translateY(-5px);
-}
-
-.artist-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 colonnes */
-    gap: 30px; /* Ajoute un écart de 30px entre les albums */
-    padding: 20px;
+.home-icon {
+    width: 10%;
+    cursor: pointer;
 }
 
 .artist-card {
     background-color: rgb(255, 255, 178);
-    padding: 2px;
+    padding: 10px;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
 
-.artist-card:hover {
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+.artist-name-container {
+    background-color: rgb(230, 230, 175);
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
 }
 
-.artist-card p {
+.artist-name {
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+.artist-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: 150px;
+    margin: 10px auto;
+    border-radius: 10px;
+}
+
+.artist-card:hover {
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+    transform: translateY(-5px);
+    transition: transform 0.3s ease-in-out;
+}
+
+.artist-name-container:hover {
+    background-color: rgb(206, 206, 176);
+}
+.artist-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 20px;
+}
+
+.page {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+
+/* Style global, on cible maintenant uniquement les sections spécifiques à l'artiste */
+
+.artist-details-container {
+    background-color: rgb(91, 91, 91);
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.artist-info {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 15px;
+    max-width: 800px;
+    position: relative;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+.artist-name {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    color: #4b0082;
+}
+
+.artist-img {
+    width: 80%;
+    height: auto;
+    display: block;
+    margin: 20px auto;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.dates-title {
+    font-size: 1.5rem;
+    margin-top: 20px;
+    color: #4b0082;
+}
+
+.dates-list {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 10px;
+}
+
+.location-item {
+    background-color: rgba(75, 0, 130, 0.1);
+    padding: 15px;
     margin-bottom: 10px;
+    border-radius: 10px;
+    transition: background-color 0.3s;
+}
+
+.location-item:hover {
+    background-color: rgba(75, 0, 130, 0.3);
+}
+
+.location-name {
+    font-weight: bold;
+    color: #4b0082;
+}
+
+/* Sous-listes des dates */
+.dates-sublist {
+    list-style-type: none;
+    padding-left: 20px;
+}
+
+.date-item {
+    padding: 5px 0;
+    color: #5a2d6e;
+}
+
+/* Ajout d'un effet de flottement sur les informations */
+.artist-info {
+    position: relative;
+}
+
+.artist-info:hover {
+    transform: translateY(-5px);
+    transition: transform 0.3s ease-in-out;
 }

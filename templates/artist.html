@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="../static/style.css">
@@ -7,22 +7,34 @@
     <title>Groupie Tracker</title>
 </head>
 <body>
-    <div>
-        <h1>{{.Name}}</h1>
-        <img src="{{.Image}}" alt="Image de {{.Name}}" class="artist-img">
-        
-        <h2>Dates de représentation :</h2>
-        <ul>
-            {{range $location, $dates := .DatesLocations}}
-                <li><strong>{{$location}}</strong>
-                    <ul>
-                        {{range $dates}}
-                            <li>{{.}}</li>
-                        {{end}}
-                    </ul>
-                </li>
-            {{end}}
-        </ul>
+    <div class="artist-details-container">
+        <div class="artist-info">
+            <h1 class="artist-name">{{.Name}}</h1>
+            <img src="{{.Image}}" alt="Image de {{.Name}}" class="artist-img">
+            <h2 class="dates-title">Dates de représentation :</h2>
+            <ul class="dates-list">
+                {{range $location, $dates := .DatesLocations}}
+                    <li class="location-item">
+                        <strong class="location-name">
+                            {{range $dates}}
+                                <a href="#" class="location-link" onclick="goToGooglePage('{{$location}}', '{{.}}')">
+                                    {{$location}} - {{.}}
+                                </a>
+                            {{end}}
+                        </strong>
+                    </li>
+                {{end}}
+            </ul>
+        </div>
     </div>
+
+    <script>
+        function goToGooglePage(city, date) {
+            // Extraire la ville avant le tiret
+            var cityName = city.split(' - ')[0];
+
+            window.location.href = "/google.html?city=" + encodeURIComponent(cityName) + "&date=" + encodeURIComponent(date);
+        }
+    </script>
 </body>
 </html>

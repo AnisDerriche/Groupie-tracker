@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="../static/style.css">
@@ -8,29 +8,75 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <a href="https://open.spotify.com/intl-fr" target="_blank"><img src="../static/spotify.png" width="80%"></a>
-        <a href="https://www.deezer.com/fr/" target="_blank"><img src="../static/deezer.png" width="70%"></a>
-        <div class="rechercher">
-            <input type="text" placeholder="Rechercher">
-            <img src="../static/loupe.png" width="10%">
+    <div class="home-container">
+        <div class="home-links">
+            <a href="https://open.spotify.com/intl-fr" target="_blank"><img src="../static/spotify.png" class="home-link-img" alt="Spotify"></a>
+            <a href="https://www.deezer.com/fr/" target="_blank"><img src="../static/deezer.png" class="home-link-img" alt="Deezer"></a>
         </div>
-        <img src="../static/mic.png" width="10%">
-        <img src="../static/maison.png" width="10%">
+        <div class="search-container">
+            <div class="rechercher">
+                <input class="search-input" type="text" id="searchBar" placeholder="Rechercher">
+            </div>
+        </div>
+        <div class="icon-container">
+            <img src="../static/mic.png" class="home-icon" alt="Microphone">
+            <img src="../static/maison.png" class="home-icon" alt="Maison">
+        </div>
     </div>
-
-    <div class="artist-container grid grid-cols-3 gap-6">
+    <div id="artistContainer" class="artist-container grid grid-cols-3 gap-6">
         {{range .}}
             <div class="artist-card">
-                <p class="text-center font-bold">{{.ArtistName}}</p>
+                <div class="artist-name-container">
+                    <p class="artist-name">{{.ArtistName}}</p>
+                </div>
                 <a href="artist.html?id={{.ID}}">
                     <img src="{{.ArtistImage}}" alt="Image de l'artiste {{.ArtistName}}" class="artist-img">
                 </a>
             </div>
         {{end}}
     </div>
-
     <div class="page"></div>
-    <script src="script.js"></script>
 </body>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const searchBar = document.getElementById("searchBar");
+        const artistContainer = document.getElementById("artistContainer");
+
+        searchBar.addEventListener("input", function () {
+            const query = searchBar.value.trim().toLowerCase();
+            
+            fetch(`/filter?filter=${query}`, { headers: { "X-Requested-With": "XMLHttpRequest" } })
+                .then(response => response.json())
+                .then(data => {
+                    artistContainer.innerHTML = ""; 
+
+                    data.forEach(artist => {
+                        console.log("Artiste reçu :", artist);
+
+                        const artistID = artist.artist_id; 
+
+                        if (!artistID) {
+                            console.error("ID manquant pour l'artiste :", artist);
+                            return;
+                        }
+
+                        const artistCard = document.createElement("div");
+                        artistCard.classList.add("artist-card");
+
+                        artistCard.innerHTML = `
+                            <div class="artist-name-container">
+                                <p class="artist-name">${artist.artist_name}</p>
+                            </div>
+                            <a href="artist.html?id=${artistID}">
+                                <img src="${artist.artist_image}" alt="Image de ${artist.artist_name}" class="artist-img">
+                            </a>
+                        `;
+
+                        artistContainer.appendChild(artistCard);
+                    });
+                })
+                .catch(error => console.error("Erreur lors du filtrage :", error));
+        });
+    });
+</script>
 </html>
