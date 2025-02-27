@@ -6,11 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Groupie Tracker - Carte</title>
 
-    //bibliothèque Leaflet.js
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 </head>
 <body>
+    <div class="home-container">
+        <a href="https://open.spotify.com/intl-fr" target="_blank"><img src="../static/spotify.png" class="home-link-img" alt="Spotify"></a>
+        <a href="https://www.deezer.com/fr/" target="_blank"><img src="../static/deezer.png" class="home-link-img" alt="Deezer"></a>
+    <div class="icon-container">
+        <img src="../static/mic.png" class="home-icon" alt="Microphone">
+        <a href=".."><img src="../static/maison.png" class="home-icon" alt="Maison"></a>
+    </div>
+</div>
     <div class="concert-info">
         <h1>Concert à {{.City}} le {{.Date}}</h1>
         <div id="map" style="height: 400px;"></div>
